@@ -1,6 +1,6 @@
-# React + TypeScript + Vite
+# Stock Portfolio Diversity Calculator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Connects to websocket from finnhub's API to display real-time stock data. Users may select any combination of stocks to calculate the diversity score using the formula: \sum_{i=1}^11 w^2  
 
 Currently, two official plugins are available:
 
