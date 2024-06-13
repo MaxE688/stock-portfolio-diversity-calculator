@@ -1,6 +1,6 @@
 # Stock Portfolio Diversity Calculator
 
-Connects to websocket from finnhub's API to display real-time stock data. Users may select any combination of stocks to calculate the diversity score using the formula: $\sum_{\substack{0<i<m\0<j<n}} P(i, j)$  
+Connects to websocket from finnhub's API to display real-time stock data. Users may select any combination of stocks to calculate the diversity score using the formula: $\sum_{i=1}^{10} t_i$  
 
 Currently, two official plugins are available:
 
