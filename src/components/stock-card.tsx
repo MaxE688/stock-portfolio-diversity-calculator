@@ -13,6 +13,7 @@ export default function StockCard({ stock, handleClick, isSelected = false }: Pr
   const [ price, setPrice ] = useState(0);
   const [ priceChange, setPriceChange ] = useState(0);
   
+  // update price values
   useEffect(() => {
     setPriceChange( stock.price - price);
     setPrice(stock.price)
