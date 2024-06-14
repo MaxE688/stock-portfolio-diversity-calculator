@@ -1,5 +1,5 @@
 
-import './App.css';
+import './stylesheets/App.css';
 import PortfolioCalculator from './components/portfolio-calculator';
 
 function App() {
