@@ -20,7 +20,7 @@ export default function useStocks(url: string){
       socket.onopen = () => {
         console.log("socket opened")
 
-        dow30.forEach( (sector, symbol) => {
+        dow30.forEach( ( _sector, symbol ) => {
           socket.send(JSON.stringify({
             'type':'subscribe',
             'symbol':symbol
@@ -81,7 +81,7 @@ export default function useStocks(url: string){
     }, 1000);
   } ,[socket]);
 
-  
+
 
   // Establish websocket connection
   useEffect(() => {
