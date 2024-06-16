@@ -33,22 +33,16 @@ export default function PortfolioCalculator(){
           // if traded symbol is already in stocks array, update value of price
           // else add new stock to array
           if(index >= 0){
-
             newStocks[index].price = trade.p;
-
           }
           else{
-
             newStocks.push({ symbol: trade.s, sector: String(dow30.get(trade.s)), price:trade.p });
-            
           }
         });
 
         return newStocks;
       });
-
     }
-
   }, [trades]);
 
 

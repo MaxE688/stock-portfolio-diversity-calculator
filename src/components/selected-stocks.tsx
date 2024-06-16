@@ -13,7 +13,7 @@ export default function SelectedStocks({ stocks, handleClick }: Props){
     <>
       <h3>Selected Stocks</h3>
       <div className="selected-stocks container">
-        {
+        { // if there are selected stock, display stocks, else display empty container
           stocks.length !== 0 ? 
             stocks.map((item, i) => (
               <StockCard key={i} stock={item} handleClick={handleClick}/>

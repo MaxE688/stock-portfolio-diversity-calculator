@@ -15,7 +15,7 @@ export default function AllStocks({ stocks, selectedStocks, handleClick }: Props
     <>
       <h3>All Stocks</h3>
       <div className="all-stocks container">
-        {
+        { // if there are stocks to display
           stocks && stocks.map((item, i) => (
             <StockCard 
               key={i} 
