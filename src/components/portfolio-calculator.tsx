@@ -4,6 +4,7 @@ import useStocks from "../lib/use-stocks";
 import AllStocks from "./all-stocks";
 import SelectedStocks from "./selected-stocks";
 import DiversityCalculator from "./diversity-calculator";
+// import finnhub from "finnhub";
 
 
 export default function PortfolioCalculator(){
@@ -12,6 +13,30 @@ export default function PortfolioCalculator(){
   // selectedStocks array used to populate Selected Stocks section
   const [ stocks, setStocks ] = useState<Array<StockData>>([]);
   const [ selectedStocks, setSelectedStocks ] = useState<Array<StockData>>([]);
+
+
+  useEffect(() => {
+    // fetch("http://localhost:3000")
+    fetch("https://one-off-backends.onrender.com")
+      .then((res) => res.json())
+      .then((resData) => {
+        console.log(JSON.parse(resData));
+        const parsedData = JSON.parse(resData);
+        const formattedStocks: [] = parsedData.map((stock: {data:{}, name: string}) => {
+          return{
+            price: stock.data.c,
+            sector: dow30.get(stock.name),
+            symbol: stock.name
+          };
+        }); 
+
+        setStocks(formattedStocks);
+      });
+
+
+  }, []);
+  
+ 
 
 
 
