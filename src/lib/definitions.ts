@@ -16,6 +16,16 @@ export interface StockData {
   price: number
 }
 
+// type for data returned by quote call
+export type quoteData = {
+  "c": number,
+  "h": number,
+  "l": number,
+  "o": number,
+  "pc": number,
+  "t": number 
+}
+
 // Map of DOW 30 companies with their respective sectors
 export const dow30: Map<string, string> = new Map([
   [ "MMM", "Industrials" ],

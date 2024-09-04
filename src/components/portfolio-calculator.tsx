@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StockData, TradeInfo, dow30 } from "../lib/definitions";
+import { StockData, TradeInfo, dow30, quoteData } from "../lib/definitions";
 import useStocks from "../lib/use-stocks";
 import AllStocks from "./all-stocks";
 import SelectedStocks from "./selected-stocks";
@@ -22,7 +22,7 @@ export default function PortfolioCalculator(){
       .then((resData) => {
         console.log(JSON.parse(resData));
         const parsedData = JSON.parse(resData);
-        const formattedStocks: [] = parsedData.map((stock: {data:{}, name: string}) => {
+        const formattedStocks: StockData[] = parsedData.map((stock: {data: quoteData, name: string}) => {
           return{
             price: stock.data.c,
             sector: dow30.get(stock.name),
