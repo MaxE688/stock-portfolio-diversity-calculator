@@ -4,7 +4,6 @@ import useStocks from "../lib/use-stocks";
 import AllStocks from "./all-stocks";
 import SelectedStocks from "./selected-stocks";
 import DiversityCalculator from "./diversity-calculator";
-// import finnhub from "finnhub";
 
 
 export default function PortfolioCalculator(){
@@ -39,8 +38,8 @@ export default function PortfolioCalculator(){
  
 
 
-
   // trades array stores data from the websocket connection 
+  // IDEA: make trades a state, pass the state to useStocks
   const trades: Array<TradeInfo> = useStocks(`wss://ws.finnhub.io?token=${import.meta.env.VITE_API_TOKEN}`);
 
 

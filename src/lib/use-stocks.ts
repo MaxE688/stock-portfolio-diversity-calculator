@@ -20,6 +20,11 @@ export default function useStocks(url: string){
       socket.onopen = () => {
         console.log("socket opened")
 
+        // socket.send(JSON.stringify({
+        //   'type':'subscribe',
+        //   'symbol': Array.from(dow30.keys())
+        // }));
+
         dow30.forEach( ( _sector, symbol ) => {
           socket.send(JSON.stringify({
             'type':'subscribe',
@@ -75,7 +80,7 @@ export default function useStocks(url: string){
 
         // clear array after all messages have been processed
         unprocessedMessages = [];
-        console.log("Values Updated")
+        console.log("Values Updated: ", symbols)
 
       }
     }, 1000);
@@ -94,7 +99,7 @@ export default function useStocks(url: string){
         console.log("WebSocket Error:",error)
       }
     }
-  }, [url]);
+  }, []);
 
 
 
