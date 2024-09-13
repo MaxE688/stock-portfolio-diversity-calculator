@@ -20,11 +20,6 @@ export default function useStocks(url: string){
       socket.onopen = () => {
         console.log("socket opened")
 
-        // socket.send(JSON.stringify({
-        //   'type':'subscribe',
-        //   'symbol': Array.from(dow30.keys())
-        // }));
-
         dow30.forEach( ( _sector, symbol ) => {
           socket.send(JSON.stringify({
             'type':'subscribe',

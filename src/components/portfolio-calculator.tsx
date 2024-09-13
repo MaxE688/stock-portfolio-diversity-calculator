@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { StockData, TradeInfo, dow30, quoteData } from "../lib/definitions";
 import useStocks from "../lib/use-stocks";
 import AllStocks from "./all-stocks";
 import SelectedStocks from "./selected-stocks";
 import DiversityCalculator from "./diversity-calculator";
+import { messageRecieved, startTick, subscribe } from "../lib/ws-operations";
+
+
+// export const websocketContext = createContext(false, null, () => {});
+// export const websocketContext = createContext();
 
 
 export default function PortfolioCalculator(){
@@ -12,8 +17,14 @@ export default function PortfolioCalculator(){
   // selectedStocks array used to populate Selected Stocks section
   const [ stocks, setStocks ] = useState<Array<StockData>>([]);
   const [ selectedStocks, setSelectedStocks ] = useState<Array<StockData>>([]);
+  const [ trades, setTrades ] = useState<Array<TradeInfo>>([])
 
+  //Websocket Context states
+  const [ reconnect, setReconnect ] = useState(true);
+  const [ value, setValue ] = useState(null);
+  const socketRef = useRef<WebSocket | null>(null);
 
+  // get initial stock data before websocket starts updating
   useEffect(() => {
     // fetch("http://localhost:3000")
     fetch("https://one-off-backends.onrender.com")
@@ -32,15 +43,57 @@ export default function PortfolioCalculator(){
         setStocks(formattedStocks);
       });
 
+    // create and configure websocket
+    // let socket: WebSocket;
+    try {
+      const socket = new WebSocket(`wss://ws.finnhub.io?token=${import.meta.env.VITE_API_TOKEN}`);
+      
 
+      //this is where the listeners are configured, add custom functions to get expected behavior
+      socket.onopen = () => {
+        console.log("Socket opened");
+        // setIsReady(true);
+        
+        if(sendToSocket !== undefined){
+          subscribe(Array.from(dow30.keys()), sendToSocket);
+        }
+        startTick(setTrades);
+        
+      };
+      socket.onclose = () => {
+        // setIsReady(false);
+        console.log("Socket closed");
+      };
+      socket.onmessage = (event) => {
+        // setValue(event.data);
+        messageRecieved(event);
+        console.log("onmessage: ")
+      };
+
+      socketRef.current = socket;
+      const sendToSocket= socketRef.current?.send.bind(socketRef.current);
+
+      return () => {
+        if(socket.readyState === socket.OPEN) {
+          console.log("Closing socket");
+          setReconnect(false);
+          socket.close()
+        }
+      };
+
+    } catch (error) {
+      console.log("WebSocket Error:", error)
+    }
   }, []);
+
   
- 
+  // const context = [isReady, value, sendToSocket];
+
+  
 
 
-  // trades array stores data from the websocket connection 
-  // IDEA: make trades a state, pass the state to useStocks
-  const trades: Array<TradeInfo> = useStocks(`wss://ws.finnhub.io?token=${import.meta.env.VITE_API_TOKEN}`);
+  // // trades array stores data from the websocket connection 
+  // const trades: Array<TradeInfo> = useStocks(`wss://ws.finnhub.io?token=${import.meta.env.VITE_API_TOKEN}`);
 
 
 
@@ -103,17 +156,19 @@ export default function PortfolioCalculator(){
 
 
   return (
-    <div>
-      <div className="portfolio-container">
-        <div>
-          <SelectedStocks stocks={selectedStocks} handleClick={handleUnselectStock}/>
+    // <websocketContext.Provider value={context}>
+      <div>
+        <div className="portfolio-container">
+          <div>
+            <SelectedStocks stocks={selectedStocks} handleClick={handleUnselectStock}/>
+          </div>
+          <div className="calculator-container">
+            <DiversityCalculator stocks={selectedStocks} />
+          </div>
         </div>
-        <div className="calculator-container">
-          <DiversityCalculator stocks={selectedStocks} />
-        </div>
+        <AllStocks stocks={stocks} selectedStocks={selectedStocks} handleClick={handleSelectStock}/>
       </div>
-      <AllStocks stocks={stocks} selectedStocks={selectedStocks} handleClick={handleSelectStock}/>
-    </div>
+    // </websocketContext.Provider>
   );
 }
 
