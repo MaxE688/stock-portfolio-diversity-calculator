@@ -1,15 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { StockData, TradeInfo, dow30, quoteData } from "../lib/definitions";
-import useStocks from "../lib/use-stocks";
 import AllStocks from "./all-stocks";
 import SelectedStocks from "./selected-stocks";
 import DiversityCalculator from "./diversity-calculator";
-import { messageRecieved, openWebSocket, setSend, startTick, subscribe } from "../lib/ws-operations";
+import { openWebSocket } from "../lib/ws-operations";
 import SelectPool from "./select-pool";
 
-
-// export const websocketContext = createContext(false, null, () => {});
-// export const websocketContext = createContext();
 
 
 export default function PortfolioCalculator(){
@@ -25,16 +21,14 @@ export default function PortfolioCalculator(){
   const [ customStocks, setCustomStocks ] = useState<Array<StockData>>([]);
 
   //Websocket Context states
-  const [ reconnect, setReconnect ] = useState(true);
-  const [ value, setValue ] = useState(null);
-  // const [ send, setSend ] = useState<(data: string | ArrayBufferLike | Blob | ArrayBufferView) => void>(()=>{});
+  // const [ reconnect, setReconnect ] = useState(true);
+  // const [ value, setValue ] = useState(null);
   const socketRef = useRef<WebSocket | null>(null);
   const sendRef = useRef<(data: string | ArrayBufferLike | Blob | ArrayBufferView) => void | undefined>();
 
   // get initial stock data before websocket starts updating
   useEffect(() => {
     // const url = import.meta.env.BACKEND_URL;
-    // fetch(url)
     // fetch("https://one-off-backends.onrender.com")
     fetch("http://localhost:3000")
       .then((res) => res.json())
@@ -63,19 +57,7 @@ export default function PortfolioCalculator(){
           setTrades 
         )
         sendRef.current = sendFunc;
-        // setSend(sendFunc? sendFunc : ()=>{});
-  
-        // socket? socketRef.current = socket : socketRef.current = null;
-        // if(socketRef.current != null)
-        //   setSend(socketRef.current?.send.bind(socketRef.current));
-  
-        // return () => {
-        //   if(socket?.readyState === socket?.OPEN) {
-        //     console.log("Closing socket");
-        //     setReconnect(false);
-        //     socket?.close()
-        //   }
-        // };
+        
       });
 
       return () => {
@@ -93,20 +75,14 @@ export default function PortfolioCalculator(){
   // update stocks array when new trade data comes in
   useEffect(() => {
     if( trades.length > 0 ){
-      // TODO: change to filter new data by the list it belongs to
-      
       trades.forEach(( trade ) => {
-        //create datum to push to appropriete list(s)
         //if trade symbol belongs to dow30 add to dow30stocks
         //if trade symbol belongs to customlist add to custom list
-        const stockDatum = {
-          Symbol: trade.s, 
-          sector:  ""
-        }
+        
         const dowTradeIndex = dow30Stocks.findIndex(element => element.symbol === trade.s);
         const customTradeIndex = customStocks.findIndex(element => element.symbol === trade.s);
 
-        if( dowTradeIndex > 0){
+        if( dowTradeIndex > 0 ){
           setStocksList(setDow30Stocks, dowTradeIndex, trade.p);
         }
         if( customTradeIndex > 0 ){
@@ -180,16 +156,12 @@ export default function PortfolioCalculator(){
       'type': 'subscribe',
       'symbol': stock.symbol
     }
-    // let res = socketRef.current?.send(JSON.stringify(sendObj));
     if(sendRef.current){
-      let res = sendRef.current(JSON.stringify(sendObj));
-      console.log();
+      sendRef.current(JSON.stringify(sendObj));
     }
-    // subscribe([stock.symbol]);
   }
 
   return (
-    // <websocketContext.Provider value={context}>
       <div>
         <SelectPool pool={stockPool} setPool={handleStockPoolChange} handleNewStock={handleNewStock}/>
         {/* <button onClick={() => subscribe(["GME"])}>Click me, bro</button> */}
@@ -207,7 +179,6 @@ export default function PortfolioCalculator(){
           stockPool={stockPool}
           handleClick={handleSelectStock}/>
       </div>
-    // </websocketContext.Provider>
   );
 }
 
