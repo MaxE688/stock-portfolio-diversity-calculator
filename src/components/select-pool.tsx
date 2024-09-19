@@ -24,7 +24,7 @@ export default function SelectPool({ pool, setPool, handleNewStock }: Props) {
 
   }, 500);
 
-  const getStockData = async (data: any, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const getStockData = async (data: any, event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const q = `http://localhost:3000/query?` + new URLSearchParams({stock: data}).toString();
     const fetched = await fetch(q);
     const responseData = await fetched.json();

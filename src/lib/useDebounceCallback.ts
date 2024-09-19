@@ -1,10 +1,10 @@
 import { useCallback, useRef } from "react";
 
 export default function useDebouncedCallback(func: (...args: any[]) => void, wait: number) {
-  const timeout = useRef();
+  const timeout = useRef(-1);
 
   return useCallback(
-    (...args) => {
+    (...args: any) => {
       const later = () => {
         clearTimeout(timeout.current);
         func(...args);
