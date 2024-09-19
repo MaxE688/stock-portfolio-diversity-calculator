@@ -225,3 +225,24 @@ p {
   transform: translateY(calc( -9 * var(--digit-height) ));
   transition-duration: var(--transition-speed);
 }
+
+.select-pool-container {
+  position:absolute;
+}
+
+.block{
+  display: block;
+  /* position:absolute; */
+}
+
+.hidden{
+  display: none;
+}
+
+.query-suggestions{
+  /* position: absolute; */
+  background-color: #4ade80;
+  color:#020617;
+  width: 177px;
+
+}
