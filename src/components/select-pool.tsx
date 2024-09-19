@@ -10,7 +10,6 @@ interface Props {
 
 export default function SelectPool({ pool, setPool, handleNewStock }: Props) {
 
-  const [ query, setQuery ] = useState(""); // can be removed
   const [ suggestionData, setSuggestionData ] = useState<Array<any>>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -18,7 +17,6 @@ export default function SelectPool({ pool, setPool, handleNewStock }: Props) {
   }
 
   const handleQuery = useDebouncedCallback( async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
     const q = `http://localhost:3000/suggestions?` + new URLSearchParams({stock: String(e.target.value)}).toString();
     const fetched = await fetch(q);
     const responseData = await fetched.json();
@@ -32,16 +30,9 @@ export default function SelectPool({ pool, setPool, handleNewStock }: Props) {
     const responseData = await fetched.json();
     const stockData = JSON.parse(responseData);
 
-    // const stock: StockData  = {
-    //   symbol: stockData.symbol,
-    //   price: stockData.price,
-    //   sector: ""
-    // }
-
     handleNewStock(stockData);
 
     setSuggestionData([]);
-
   }
 
   return(
