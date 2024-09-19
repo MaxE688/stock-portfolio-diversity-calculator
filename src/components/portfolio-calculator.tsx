@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { StockData, TradeInfo, dow30, quoteData } from "../lib/definitions";
+import { StockData, TradeInfo, quoteData } from "../lib/definitions";
 import AllStocks from "./all-stocks";
 import SelectedStocks from "./selected-stocks";
 import DiversityCalculator from "./diversity-calculator";
