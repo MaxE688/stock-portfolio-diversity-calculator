@@ -42,7 +42,7 @@ export default function SelectPool({ pool, setPool, handleNewStock }: Props) {
           <option value="DOW 30">DOW 30</option>
           <option value="Custom List">Custom</option>
         </select>
-        <div className={(pool === "DOW 30"? "hidden" : "block")}>
+        <div className={(pool === "DOW 30"? "hidden" : "block") + " search"}>
           <input placeholder="Search Symbol" onChange={handleQuery}></input>
           <div className="query-suggestions">
             {

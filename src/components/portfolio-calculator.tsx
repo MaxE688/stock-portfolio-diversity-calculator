@@ -162,7 +162,7 @@ export default function PortfolioCalculator(){
   }
 
   return (
-      <div>
+      <div className="component-container">
         <SelectPool pool={stockPool} setPool={handleStockPoolChange} handleNewStock={handleNewStock}/>
         {/* <button onClick={() => subscribe(["GME"])}>Click me, bro</button> */}
         <div className="portfolio-container">

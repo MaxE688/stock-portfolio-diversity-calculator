@@ -27,6 +27,17 @@ p {
   margin-bottom: 0.25rem;
 }
 
+.component-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.search {
+  /* margin-bottom:24px; */
+}
+
 .symbol {
   font-size: 1.125rem; 
   line-height: 1.75rem;
@@ -118,6 +129,8 @@ p {
   border-radius: 0.75rem;
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
+  width:608px;
+  height:519px;
 }
 
 .selected-stocks {
@@ -227,7 +240,7 @@ p {
 }
 
 .select-pool-container {
-  position:absolute;
+  /* position:absolute; */
 }
 
 .block{
