@@ -257,5 +257,9 @@ p {
   background-color: #4ade80;
   color:#020617;
   width: 177px;
+}
 
+.waiting {
+  background-color: red;
+  height:50px;
 }
