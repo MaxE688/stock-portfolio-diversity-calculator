@@ -18,6 +18,8 @@ export default function SelectPool({ pool, setPool, handleNewStock }: Props) {
   }
 
   const handleQuery = useDebouncedCallback( async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSuggestionData([]);
+    
     if(e.target.value !== ""){
       setIsWaiting(true);
       const q = `http://localhost:3000/suggestions?` + new URLSearchParams({stock: String(e.target.value)}).toString();
@@ -26,9 +28,7 @@ export default function SelectPool({ pool, setPool, handleNewStock }: Props) {
       setSuggestionData(JSON.parse(responseData));
       setIsWaiting(false)
     }
-    else{
-      setSuggestionData([]);
-    }
+    
   }, 500);
 
   const getStockData = async (data: any, event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -51,7 +51,9 @@ export default function SelectPool({ pool, setPool, handleNewStock }: Props) {
         </select>
         <div className={(pool === "DOW 30"? "hidden" : "block") + " search"}>
           <input placeholder="Search Symbol" onChange={handleQuery}></input>
-          <div className={"query-suggestions " + (isWaiting? "waiting" : "")}>
+          <div className={"query-suggestions " + (isWaiting? "waiting" : (suggestionData.length > 0? "show-results" : "not-waiting"))}>
+            <img className={(isWaiting? "waiting" : "not-waiting")} src='loading-svgrepo-com.svg' />
+            
             {
               suggestionData.length > 0?
                 suggestionData.map( d => (

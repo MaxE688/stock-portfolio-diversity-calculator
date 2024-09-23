@@ -259,7 +259,31 @@ p {
   width: 177px;
 }
 
-.waiting {
-  background-color: red;
-  height:50px;
+div.waiting{
+  height: 30px;
+  padding-top: 5px;
+}
+
+img.waiting {
+  /* background-color: red;
+  height:50px; */
+  background-color: none;
+  height: 25px;
+  width: 25px;
+  animation: wait-for-results 0.8s infinite;
+  animation-timing-function: linear;
+}
+
+.not-waiting{
+  /* height: 0px; */
+  display: none;
+}
+
+@keyframes wait-for-results {
+  0% { rotate: 0deg; }
+  100% { rotate: 360deg; }
+}
+
+.show-results {
+
 }
