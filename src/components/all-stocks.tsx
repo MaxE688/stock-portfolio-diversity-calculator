@@ -28,6 +28,35 @@ export default function AllStocks({ stocks, selectedStocks, stockPool, handleCli
           )) 
         }
       </div>
+      
+      {/* create table row component for stocks */}
+      <table>
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Current Price</th>
+            <th>Sector</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            stocks && stocks.map((stock, i) => (
+              <tr>
+                <td>{stock.symbol}</td>
+                <td>{stock.price}</td>
+                <td>{stock.sector}</td>
+                {
+                  stockPool === "Custom List"?
+                  <td><button>X</button></td>
+                  :
+                  ""
+                }
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
     </>
   );
 }
