@@ -76,11 +76,8 @@ tr td:last-child {
 
 
 .disabled-row {
-  margin: 0.25rem;
   background-color: #cbd5e1;
-  border-radius: 0.75rem;
-  margin: 0.25rem;
-  height: 6rem;
+  height: 4rem;
   width: 6rem;
   cursor: default;
 }
@@ -93,15 +90,34 @@ tr td:last-child {
     #c7d2fe ,
     #020617
   );
-  margin: 0.25rem;
-  border-radius: 0.75rem;
-  margin: 0.25rem;
+  
   height: 4rem;
   width: 6rem;
   cursor: pointer;
 }
 
 .row:hover {
+  /* background-color: #cbd5e1; */
+  transform: scale(1.05);
+}
+
+.card {
+  /* background-color: #64748b; */
+  background-image: conic-gradient(
+    from 180deg
+    at 50% 115%,
+    #c7d2fe ,
+    #020617
+  );
+  margin: 0.25rem;
+  border-radius: 0.75rem;
+  margin: 0.25rem;
+  height: 6rem;
+  width: 6rem;
+  cursor: pointer;
+}
+
+.card:hover {
   /* background-color: #cbd5e1; */
   transform: scale(1.05);
 }
