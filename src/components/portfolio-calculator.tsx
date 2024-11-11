@@ -28,9 +28,8 @@ export default function PortfolioCalculator(){
 
   // get initial stock data before websocket starts updating
   useEffect(() => {
-    // const url = import.meta.env.BACKEND_URL;
-    // fetch("https://one-off-backends.onrender.com")
-    fetch("http://localhost:3000")
+    
+    fetch(import.meta.env.VITE_API_BACKEND_URL)
       .then((res) => res.json())
       .then((resData) => {
         console.log(JSON.parse(resData));

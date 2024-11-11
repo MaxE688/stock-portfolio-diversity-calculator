@@ -22,7 +22,7 @@ export default function SelectPool({ pool, setPool, handleNewStock }: Props) {
     
     if(e.target.value !== ""){
       setIsWaiting(true);
-      const q = `http://localhost:3000/suggestions?` + new URLSearchParams({stock: String(e.target.value)}).toString();
+      const q = import.meta.env.VITE_API_BACKEND_URL + "suggestions?" + new URLSearchParams({stock: String(e.target.value)}).toString();
       const fetched = await fetch(q);
       const responseData = await fetched.json();
       setSuggestionData(JSON.parse(responseData));
@@ -32,7 +32,7 @@ export default function SelectPool({ pool, setPool, handleNewStock }: Props) {
   }, 500);
 
   const getStockData = async (data: any, event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const q = `http://localhost:3000/query?` + new URLSearchParams({stock: data}).toString();
+    const q = import.meta.env.VITE_API_BACKEND_URL + `query?` + new URLSearchParams({stock: data}).toString();
     const fetched = await fetch(q);
     const responseData = await fetched.json();
     const stockData = JSON.parse(responseData);
@@ -56,8 +56,8 @@ export default function SelectPool({ pool, setPool, handleNewStock }: Props) {
             
             {
               suggestionData.length > 0?
-                suggestionData.map( d => (
-                  <div onClick={(e) => getStockData(d, e)}>
+                suggestionData.map( (d, index) => (
+                  <div key={index} onClick={(e) => getStockData(d, e)}>
                     <p>{d}</p>
                   </div>
                 ))
