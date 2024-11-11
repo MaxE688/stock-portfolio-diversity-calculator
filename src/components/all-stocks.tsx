@@ -1,6 +1,7 @@
 
 import { StockData } from "../lib/definitions";
 import StockCard from "./stock-card";
+import TableRow from "./table-row";
 
 interface Props {
   stocks: Array<StockData> | undefined,
@@ -15,7 +16,7 @@ export default function AllStocks({ stocks, selectedStocks, stockPool, handleCli
   return(
     <>
       <h3>{stockPool}</h3>
-      <div className="all-stocks container">
+      {/* <div className="all-stocks container">
         { // if there are stocks to display
           stocks && stocks.map((item, i) => (
             <StockCard 
@@ -27,7 +28,7 @@ export default function AllStocks({ stocks, selectedStocks, stockPool, handleCli
             
           )) 
         }
-      </div>
+      </div> */}
       
       {/* create table row component for stocks */}
       <table>
@@ -36,23 +37,20 @@ export default function AllStocks({ stocks, selectedStocks, stockPool, handleCli
             <th>Symbol</th>
             <th>Current Price</th>
             <th>Sector</th>
-            <th>Remove</th>
+            <th>{stockPool === "Custom List"? "Remove" : " "}</th>
           </tr>
         </thead>
         <tbody>
           {
             stocks && stocks.map((stock, i) => (
-              <tr>
-                <td>{stock.symbol}</td>
-                <td>{stock.price}</td>
-                <td>{stock.sector}</td>
-                {
-                  stockPool === "Custom List"?
-                  <td><button>X</button></td>
-                  :
-                  ""
-                }
-              </tr>
+             
+              <TableRow
+                key={i} 
+                stock={stock} 
+                handleClick={handleClick} 
+                stockPool={stockPool}                
+                isSelected={ selectedStocks.includes(stock) } 
+              />
             ))
           }
         </tbody>
