@@ -172,11 +172,17 @@ export default function PortfolioCalculator(){
             <DiversityCalculator stocks={selectedStocks} />
           </div>
         </div>
-        <AllStocks 
-          stocks={stocks} 
-          selectedStocks={selectedStocks} 
-          stockPool={stockPool}
-          handleClick={handleSelectStock}/>
+        {
+          stocks.length > 0?
+            <AllStocks 
+              stocks={stocks} 
+              selectedStocks={selectedStocks} 
+              stockPool={stockPool}
+              handleClick={handleSelectStock}
+            />
+          :
+            "Work in progress..."
+        }
       </div>
   );
 }
