@@ -2,7 +2,7 @@ import { StockData } from "../lib/definitions"
 import TableRow from "./table-row"
 
 interface Props {
-  stocks: Array<StockData> | undefined,
+  stocks: Array<StockData> ,
   selectedStocks: Array<StockData>,
   stockPool: string,
   handleClick: (stock: StockData) => void
@@ -11,6 +11,7 @@ interface Props {
 export default function Table({ stocks, selectedStocks, stockPool, handleClick }: Props){
   
   // console.log("");
+  
 
   return (
     <table>
@@ -24,7 +25,7 @@ export default function Table({ stocks, selectedStocks, stockPool, handleClick }
       </thead>
       <tbody>
         {
-          stocks && stocks.map((stock, i) => (
+          stocks.map((stock, i) => (
             
             <TableRow
               key={i} 
