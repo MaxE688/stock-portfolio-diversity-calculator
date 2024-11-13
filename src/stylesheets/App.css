@@ -86,8 +86,10 @@ tr td:last-child {
 .row {
   /* background-color: #64748b; */
   background-image: linear-gradient(
-    #a2add3 ,
-    #51566b
+    /* #a2add3 ,
+    #51566b */
+    #000000,
+    #292929
   );
   /* background-image: conic-gradient(
     from 180deg
