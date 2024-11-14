@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { StockData, TradeInfo, quoteData } from "../lib/definitions";
+import { StockCardData, StockData, TradeInfo, quoteData } from "../lib/definitions";
 import AllStocks from "./all-stocks";
 import SelectedStocks from "./selected-stocks";
 import DiversityCalculator from "./diversity-calculator";
@@ -13,7 +13,7 @@ export default function PortfolioCalculator(){
   // stocks array used to populate All Stocks section
   // selectedStocks array used to populate Selected Stocks section
   const [ stocks, setStocks ] = useState<Array<StockData>>([]);
-  const [ selectedStocks, setSelectedStocks ] = useState<Array<StockData>>([]);
+  const [ selectedStocks, setSelectedStocks ] = useState<Array<StockCardData>>([]);
   const [ trades, setTrades ] = useState<Array<TradeInfo>>([])
   const [ stockPool, setStockPool ] = useState("DOW 30");
 
@@ -105,13 +105,21 @@ export default function PortfolioCalculator(){
   // event listener: adds clicked stock card to selectedStocks array
   const handleSelectStock = (stock: StockData) => {
     console.log("Clicked:", stock.symbol)
+    
+    const stockCard = {
+      symbol: stock.symbol,
+      sector: stock.sector,
+      price: stock.price,
+      quantity: 1
+    };
+
     setSelectedStocks((prev) => { 
 
       if(prev.find((prevItem) => stock.symbol === prevItem.symbol )) {
         return prev;
       }
       
-      return [ ...prev, stock];
+      return [ ...prev, stockCard];
     });
   }
 
@@ -160,13 +168,35 @@ export default function PortfolioCalculator(){
     }
   }
 
+
+  const handleQtyChange = (qty: number, symbol: string) => {
+    // const index = selectedStocks.findIndex((elem: StockCardData) => elem.symbol === symbol);
+    // selectedStocks[index].quantity = qty;
+
+    setSelectedStocks((prev) => {
+      const newArr = [...prev];
+      const stockIndex = newArr.findIndex((elem) => elem.symbol === symbol);
+      if(stockIndex >= 0){
+        newArr[stockIndex].quantity = qty;
+
+        return newArr;
+      }
+
+      return prev;
+    });
+  }
+
   return (
       <div className="component-container">
         <SelectPool pool={stockPool} setPool={handleStockPoolChange} handleNewStock={handleNewStock}/>
         {/* <button onClick={() => subscribe(["GME"])}>Click me, bro</button> */}
         <div className="portfolio-container">
           <div>
-            <SelectedStocks stocks={selectedStocks} handleClick={handleUnselectStock}/>
+            <SelectedStocks 
+              stocks={selectedStocks} 
+              handleClick={handleUnselectStock}
+              handleQtyChange={handleQtyChange}  
+            />
           </div>
           <div className="calculator-container">
             <DiversityCalculator stocks={selectedStocks} />

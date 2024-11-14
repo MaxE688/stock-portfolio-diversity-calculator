@@ -1,12 +1,13 @@
-import { StockData } from "../lib/definitions";
+import { StockCardData, StockData } from "../lib/definitions";
 import StockCard from "./stock-card";
 
 interface Props {
-  stocks: Array<StockData>,
-  handleClick: (s: StockData) => void
+  stocks: Array<StockCardData>,
+  handleClick: (s: StockData) => void,
+  handleQtyChange: (n: number, s:string) => void
 }
 
-export default function SelectedStocks({ stocks, handleClick }: Props){
+export default function SelectedStocks({ stocks, handleClick, handleQtyChange }: Props){
 
   
   return (
@@ -16,7 +17,12 @@ export default function SelectedStocks({ stocks, handleClick }: Props){
         { // if there are selected stock, display stocks, else display empty container
           stocks.length !== 0 ? 
             stocks.map((item, i) => (
-              <StockCard key={i} stock={item} handleClick={handleClick}/>
+              <StockCard 
+                key={i} 
+                stock={item} 
+                handleClick={handleClick}
+                handleQtyChange={handleQtyChange}  
+              />
             ))
             :
             <div className="card-placeholder">
