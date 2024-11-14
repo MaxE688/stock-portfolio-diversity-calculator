@@ -26,11 +26,17 @@ export default function AllStocks({ stocks, selectedStocks, stockPool, handleCli
 
   useEffect(() => {
 
-    const start = (currentPageNumber-1) * TOTAL_STOCKS_PER_PAGE;
-    const end = currentPageNumber * TOTAL_STOCKS_PER_PAGE;
+    let stocksPerPage = TOTAL_STOCKS_PER_PAGE;
+    if(stocks.length < stocksPerPage){
+      stocksPerPage = stocks.length ;
+    }
+
+    const start = (currentPageNumber-1) * stocksPerPage;
+    const end = currentPageNumber * stocksPerPage;
     setDataToDisplay(stocks.slice(start, end));
 
-  }, [currentPageNumber]);
+  }, [currentPageNumber, stocks]);
+  
 
   const handlePageChange = (direction: 'left' | 'right') => {
 
@@ -46,8 +52,7 @@ export default function AllStocks({ stocks, selectedStocks, stockPool, handleCli
   }
 
 
-  // console.log("breakpoint")
-
+  const breakpoint = "here";
 
   return(
     <>

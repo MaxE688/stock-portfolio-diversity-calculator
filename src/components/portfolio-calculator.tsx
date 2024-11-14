@@ -159,6 +159,9 @@ export default function PortfolioCalculator(){
     const newArr = customStocks;
     newArr.push(stock)
     setCustomStocks(newArr);
+    if(stockPool === "Custom List"){
+      setStocks(newArr);
+    }
     const sendObj = {
       'type': 'subscribe',
       'symbol': stock.symbol
@@ -188,7 +191,11 @@ export default function PortfolioCalculator(){
 
   return (
       <div className="component-container">
-        <SelectPool pool={stockPool} setPool={handleStockPoolChange} handleNewStock={handleNewStock}/>
+        <SelectPool 
+          pool={stockPool} 
+          setPool={handleStockPoolChange} 
+          handleNewStock={handleNewStock}
+        />
         {/* <button onClick={() => subscribe(["GME"])}>Click me, bro</button> */}
         <div className="portfolio-container">
           <div>

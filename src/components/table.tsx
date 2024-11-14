@@ -10,7 +10,7 @@ interface Props {
 
 export default function Table({ stocks, selectedStocks, stockPool, handleClick }: Props){
   
-  // console.log("");
+  //const breakpoint = "here";
   
 
   return (
