@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { StockData } from "../lib/definitions";
 import Table from "./table";
+import PageControls from "./page-controls";
 
 interface Props {
   stocks: Array<StockData>,
@@ -38,81 +39,28 @@ export default function AllStocks({ stocks, selectedStocks, stockPool, handleCli
   }, [currentPageNumber, stocks]);
   
 
-  const handlePageChange = (direction: 'left' | 'right') => {
-
-    let newPage = currentPageNumber;
-    if(direction === 'left' && currentPageNumber > 1){
-      newPage--;
-    }
-    else if(direction === 'right' && currentPageNumber < totalPages){
-      newPage++;
-    }
-
-    setCurrentPageNumber(newPage);
-  }
-
-
   const breakpoint = "here";
 
   return(
     <>
       <h3>{stockPool}</h3>
+      <PageControls 
+        setCurrentPageNumber={setCurrentPageNumber}
+        currentPageNumber={currentPageNumber}
+        totalPages={totalPages}
+      />
       <Table 
         stocks={dataToDisplay}
         selectedStocks={selectedStocks}
         stockPool={stockPool}
         handleClick={handleClick}
       />
-      <div className='page-controls'>
-        <PageArrow 
-          handleClick={handlePageChange}
-          direction="left"
-          isDisabled={currentPageNumber <= 1? true : false}
-        />
-        <PageNumber 
-          currentPage={currentPageNumber}
-          totalPages={totalPages}
-        />
-        <PageArrow 
-          handleClick={handlePageChange}
-          direction="right"
-          isDisabled={currentPageNumber >= totalPages? true : false}
-        />
-      </div>
+      <PageControls 
+        setCurrentPageNumber={setCurrentPageNumber}
+        currentPageNumber={currentPageNumber}
+        totalPages={totalPages}
+      />
     </>
   );
 }
 
-
-
-interface PageArrowProps {
-  handleClick: (d: 'left' |'right') => void,
-  direction: 'left' | 'right',
-  isDisabled: boolean
-}
-
-function PageArrow({handleClick, direction, isDisabled}: PageArrowProps){
-
-  const icon = direction === 'left'? '<-' : '->';
-
-  return (
-    <button className={`arrow-${direction} ` + (isDisabled? `disabled-arrow`: ` `)} onClick={() => handleClick(direction)} >
-      {icon}
-    </button>
-  );
-
-}
-
-interface PageNumberProps {
-  currentPage: number,
-  totalPages: number
-}
-
-function PageNumber({ currentPage, totalPages }: PageNumberProps){
-
-  return(
-    <p>
-      {currentPage + " / " + totalPages}
-    </p>
-  );
-}
