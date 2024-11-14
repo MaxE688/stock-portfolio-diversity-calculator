@@ -16,6 +16,14 @@ export interface StockData {
   price: number
 }
 
+// consider replacing all stockData with this interface
+export interface StockCardData{
+  symbol: string,
+  sector: string,
+  price: number,
+  quantity: number
+}
+
 // type for data returned by quote call
 export type quoteData = {
   "c": number,
