@@ -1,8 +1,9 @@
 
 import { useEffect, useState } from "react";
 import { StockData } from "../lib/definitions";
-import Table from "./table";
-import PageControls from "./page-controls";
+import Table from "./table-components/table";
+import PageControls from "./table-components/page-controls";
+import FilterBar from "./table-components/filter-bar";
 
 interface Props {
   stocks: Array<StockData>,
@@ -12,31 +13,56 @@ interface Props {
 }
 
 export default function AllStocks({ stocks, selectedStocks, stockPool, handleClick }: Props){
+  
+  const TOTAL_STOCKS_PER_PAGE = 8;
+  const defaultPageCount = Math.ceil(stocks.length / TOTAL_STOCKS_PER_PAGE);
 
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [dataToDisplay, setDataToDisplay] = useState<StockData[]>([]);
+  const [filteredData, setFilteredData] = useState<StockData[]>([]);
+  const [filter, setFilter] = useState("");
+  const [totalPages, setTotalPages] = useState(defaultPageCount);
 
-  const TOTAL_STOCKS_PER_PAGE = 10;
-  const totalPages = Math.ceil(stocks.length / TOTAL_STOCKS_PER_PAGE);
+
 
   useEffect(() => {
-
-    setDataToDisplay(stocks?.slice(0, TOTAL_STOCKS_PER_PAGE));
-
+    // setDataToDisplay(stocks.slice(0, TOTAL_STOCKS_PER_PAGE));
+    updateDisplayData(stocks);
   }, []);
 
   useEffect(() => {
+    if(filter === ""){
+      setTotalPages(getTotalPages(stocks.length));
+      updateDisplayData(stocks);
+    }
+    else{
+      updateDisplayData(filteredData)
+    }
+  }, [currentPageNumber, stocks]);
 
+  useEffect(() => {
+    const newArr = stocks.filter((stock) => stock.symbol.toLowerCase().indexOf(filter.toLowerCase()) > -1);
+    setTotalPages(getTotalPages(newArr.length));
+    setFilteredData(newArr)
+    updateDisplayData(newArr);
+  }, [filter]);
+
+
+
+  const getTotalPages = (stockCount: number) => {
+    return Math.ceil(stockCount / TOTAL_STOCKS_PER_PAGE);
+  }
+
+  const updateDisplayData = (data: StockData[]) => {
     let stocksPerPage = TOTAL_STOCKS_PER_PAGE;
-    if(stocks.length < stocksPerPage){
-      stocksPerPage = stocks.length ;
+    if(data.length < stocksPerPage){
+      stocksPerPage = data.length ;
     }
 
     const start = (currentPageNumber-1) * stocksPerPage;
     const end = currentPageNumber * stocksPerPage;
-    setDataToDisplay(stocks.slice(start, end));
-
-  }, [currentPageNumber, stocks]);
+    setDataToDisplay(data.slice(start, end));
+  }
   
 
   const breakpoint = "here";
@@ -44,11 +70,14 @@ export default function AllStocks({ stocks, selectedStocks, stockPool, handleCli
   return(
     <>
       <h3>{stockPool}</h3>
-      <PageControls 
-        setCurrentPageNumber={setCurrentPageNumber}
-        currentPageNumber={currentPageNumber}
-        totalPages={totalPages}
-      />
+      <div className="page-controls-head">
+        <FilterBar setFilter={setFilter} />
+        <PageControls 
+          setCurrentPageNumber={setCurrentPageNumber}
+          currentPageNumber={currentPageNumber}
+          totalPages={totalPages}
+          />
+      </div>
       <Table 
         stocks={dataToDisplay}
         selectedStocks={selectedStocks}
