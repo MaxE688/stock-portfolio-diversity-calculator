@@ -1,10 +1,10 @@
 import clsx from "clsx";
 import getScore from "../lib/calculator";
-import { StockData } from "../lib/definitions";
+import { StockCardData, StockData } from "../lib/definitions";
 import RollingNumbers from "./rolling-numbers";
 
 interface Props {
-  stocks: Array<StockData>
+  stocks: Array<StockCardData>
 }
 
 
