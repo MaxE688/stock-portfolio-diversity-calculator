@@ -4,9 +4,9 @@ import { TradeInfo } from "./definitions";
 let unprocessedMessages: Array<any> = [];
 
 let send: (data: string | ArrayBufferLike | Blob | ArrayBufferView) => void;
-export const setSend = (s: (data: string | ArrayBufferLike | Blob | ArrayBufferView) => void) => {
-  send = s;
-}
+// export const setSend = (s: (data: string | ArrayBufferLike | Blob | ArrayBufferView) => void) => {
+//   send = s;
+// }
 
 export const subscribe = (stocks: string[]) => {
   stocks.forEach( ( symbol ) => {
