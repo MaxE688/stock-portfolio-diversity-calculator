@@ -1,58 +1,63 @@
-import { StockData } from "./definitions";
+import { StockCardData, StockData } from "./definitions";
 
 // used to store value of each industry from selected stocks
-const sectors: {name: string, value: number}[] = [ 
-  {
-    name: "Industrials",
-    value: 0.0
-  },
-  {
-    name: "Financials",
-    value: 0.0
-  },
-  {
-    name: "Health Care",
-    value: 0.0
-  },
-  {
-    name: "Information Technology",
-    value: 0.0
-  },
-  {
-    name: "Energy", 
-    value: 0.0                
-  },
-  {
-    name: "Consumer Staples",  
-    value: 0.0      
-  },
-  {
-    name: "Materials", 
-    value: 0.0              
-  },
-  {
-    name: "Consumer Discretionary", 
-    value: 0.0 
-  },
-  {
-    name: "Communication Services", 
-    value: 0.0 
-  },
-  {
-    name: "Utilities", 
-    value: 0.0              
-  },
-  {
-    name: "Real Estate",
-    value: 0.0
-  }
-];
+// const sectors: {name: string, value: number}[] = [ 
+//   {
+//     name: "Industrials",
+//     value: 0.0
+//   },
+//   {
+//     name: "Financials",
+//     value: 0.0
+//   },
+//   {
+//     name: "Health Care",
+//     value: 0.0
+//   },
+//   {
+//     name: "Information Technology",
+//     value: 0.0
+//   },
+//   {
+//     name: "Energy", 
+//     value: 0.0                
+//   },
+//   {
+//     name: "Consumer Staples",  
+//     value: 0.0      
+//   },
+//   {
+//     name: "Materials", 
+//     value: 0.0              
+//   },
+//   {
+//     name: "Consumer Discretionary", 
+//     value: 0.0 
+//   },
+//   {
+//     name: "Communication Services", 
+//     value: 0.0 
+//   },
+//   {
+//     name: "Utilities", 
+//     value: 0.0              
+//   },
+//   {
+//     name: "Real Estate",
+//     value: 0.0
+//   }
+// ];
 
 
-export default function getScore(stocks: StockData[]){
+export default function getScore(stocks: StockCardData[]){
+
+  const sectors: {name: string, value: number}[] = getSectors(stocks);
 
   // reset sector values
   sectors.forEach( sector => sector.value = 0.0);
+
+
+  
 
 
   // get weight of each sector, the sum of those weights, and the score according to the score formula
@@ -64,8 +69,23 @@ export default function getScore(stocks: StockData[]){
 }
 
 
+const getSectors = (stocks: StockCardData[]) => {
+  const sectors: {name: string, value: number}[] = [];
+  
+  stocks.forEach( (stock: StockCardData) => {
+    const sectorIndex = sectors.findIndex( sector => sector.name === stock.sector);
+
+    if( sectorIndex < 0){
+      sectors.push({name: stock.sector, value: 0.0});
+    }
+  });
+
+  return sectors;
+}
+
+
 // returns array of weights for each sector
-const calculateWeights = (stocks: StockData[], sectors: {name: string, value: number}[]) => {
+const calculateWeights = (stocks: StockCardData[], sectors: {name: string, value: number}[]) => {
 
   // total portfolio value
   // value of each sector
@@ -84,20 +104,21 @@ const calculateWeights = (stocks: StockData[], sectors: {name: string, value: nu
 } 
   
 // returns total value of all selected stocks
-const getTotalValue = (stocks: StockData[]) => {
+const getTotalValue = (stocks: StockCardData[]) => {
   let sum = 0;
   stocks.forEach((stock) => {
-    sum += stock.price;
+    const total = stock.price * stock.quantity;
+    sum += total;
   });
 
   return sum;
 };
 
 // calculates the price of each sector in selected stocks
-const calculateSectorValue = (stocks: StockData[], sectors: {name: string, value: number}[]) => {
+const calculateSectorValue = (stocks: StockCardData[], sectors: {name: string, value: number}[]) => {
   stocks.forEach((stock) => {
     const index = sectors.findIndex((sector) => sector.name === stock.sector)
-    sectors[index].value += stock.price;
+    sectors[index].value += (stock.price * stock.quantity);
   });
 }
 
