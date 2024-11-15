@@ -1,6 +1,6 @@
 import clsx from "clsx";
-import getScore from "../lib/calculator";
-import { StockCardData, StockData } from "../lib/definitions";
+import getScore from "../../lib/calculator";
+import { StockCardData } from "../../lib/definitions";
 import RollingNumbers from "./rolling-numbers";
 
 interface Props {

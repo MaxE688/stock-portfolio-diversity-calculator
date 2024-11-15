@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StockData } from "../lib/definitions";
+import { StockData } from "../../lib/definitions";
 
 interface Props {
   stock: StockData,

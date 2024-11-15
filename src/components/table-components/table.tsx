@@ -1,4 +1,4 @@
-import { StockData } from "../lib/definitions"
+import { StockData } from "../../lib/definitions"
 import TableRow from "./table-row"
 
 interface Props {
@@ -14,7 +14,7 @@ export default function Table({ stocks, selectedStocks, stockPool, handleClick }
   
 
   return (
-    <table>
+    <table id="stocks-table">
       <thead>
         <tr>
           <th>Symbol</th>
