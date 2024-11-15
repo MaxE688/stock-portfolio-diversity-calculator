@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { StockCardData, StockData, TradeInfo, quoteData } from "../lib/definitions";
 import AllStocks from "./all-stocks";
 import SelectedStocks from "./selected-stocks";
-import DiversityCalculator from "./diversity-calculator";
+import DiversityCalculator from "./score-components/diversity-calculator";
 import { openWebSocket } from "../lib/ws-operations";
 import SelectPool from "./select-pool";
 
