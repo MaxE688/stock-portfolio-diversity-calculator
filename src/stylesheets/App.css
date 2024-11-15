@@ -28,7 +28,7 @@ p {
 }
 
 .component-container {
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
@@ -372,7 +372,26 @@ img.waiting {
 .page-controls{
   display: flex;
   align-items: center;
-  margin-top: 1rem;
+  justify-content: center;
+  /* margin-top: 1rem; */
+}
+
+.page-controls-head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter-symbol{
+  height: 2.3rem;
+  border-radius: 1rem;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  box-sizing: border-box;
+}
+
+#stocks-table{
+  margin: 1.5rem 0rem
 }
 
 .arrow-left{
