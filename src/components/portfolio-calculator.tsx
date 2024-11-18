@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { StockCardData, StockData, TradeInfo, quoteData } from "../lib/definitions";
 import AllStocks from "./all-stocks";
 import SelectedStocks from "./selected-stocks";
-import DiversityCalculator from "./score-components/diversity-calculator";
+import PortfolioData from "./score-components/portfolio-data";
 import { openWebSocket } from "../lib/ws-operations";
 import SelectPool from "./select-pool";
 
@@ -206,7 +206,7 @@ export default function PortfolioCalculator(){
             />
           </div>
           <div className="calculator-container">
-            <DiversityCalculator stocks={selectedStocks} />
+            <PortfolioData stocks={selectedStocks} />
           </div>
         </div>
         {
