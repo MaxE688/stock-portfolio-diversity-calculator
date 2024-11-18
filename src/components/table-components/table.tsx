@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { StockData } from "../../lib/definitions"
 import TableRow from "./table-row"
 
@@ -10,7 +11,8 @@ interface Props {
 
 export default function Table({ stocks, selectedStocks, stockPool, handleClick }: Props){
   
-  //const breakpoint = "here";
+  // const breakpoint = "here";
+
   
 
   return (
@@ -32,7 +34,7 @@ export default function Table({ stocks, selectedStocks, stockPool, handleClick }
               stock={stock} 
               handleClick={handleClick} 
               stockPool={stockPool}                
-              isSelected={ selectedStocks.includes(stock) } 
+              isSelected={ selectedStocks.findIndex((s) => stock.symbol === s.symbol) > -1 } 
             />
           ))
         }

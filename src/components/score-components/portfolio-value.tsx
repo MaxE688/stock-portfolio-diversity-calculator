@@ -22,9 +22,9 @@ export default function PortfolioValue({ stocks }: Props){
   return (
     <>
       <h3>Total Value</h3>
-      <div className="">
-        <div className={``}>
-          <h1>{'$' + Number(total).toFixed(2)}</h1>
+      <div className="score-container container">
+        <div className={`price-card`}>
+          <h2>{'$' + Number(total).toFixed(2)}</h2>
         </div>
       </div>
     </>
