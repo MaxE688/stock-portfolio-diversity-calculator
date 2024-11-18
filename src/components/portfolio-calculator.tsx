@@ -190,37 +190,49 @@ export default function PortfolioCalculator(){
   }
 
   return (
+    <>
+      <SelectPool 
+        pool={stockPool} 
+        setPool={handleStockPoolChange} 
+        handleNewStock={handleNewStock}
+      />
       <div className="component-container">
-        <SelectPool 
-          pool={stockPool} 
-          setPool={handleStockPoolChange} 
-          handleNewStock={handleNewStock}
-        />
-        {/* <button onClick={() => subscribe(["GME"])}>Click me, bro</button> */}
-        <div className="portfolio-container">
-          <div>
-            <SelectedStocks 
-              stocks={selectedStocks} 
-              handleClick={handleUnselectStock}
-              handleQtyChange={handleQtyChange}  
-            />
-          </div>
-          <div className="calculator-container">
-            <PortfolioData stocks={selectedStocks} />
-          </div>
+        <div>
+          <SelectedStocks 
+            stocks={selectedStocks} 
+            handleClick={handleUnselectStock}
+            handleQtyChange={handleQtyChange}  
+          />
         </div>
-        {
-          stocks.length > 0?
+        <div>
+
+          {/* <button onClick={() => subscribe(["GME"])}>Click me, bro</button> */}
+          <div className="portfolio-container">
+            <div>
+              <SelectedStocks 
+                stocks={selectedStocks} 
+                handleClick={handleUnselectStock}
+                handleQtyChange={handleQtyChange}  
+                />
+            </div>
+            <div className="calculator-container">
+              <PortfolioData stocks={selectedStocks} />
+            </div>
+          </div>
+          {
+            stocks.length > 0?
             <AllStocks 
-              stocks={stocks} 
-              selectedStocks={selectedStocks} 
-              stockPool={stockPool}
-              handleClick={handleSelectStock}
+            stocks={stocks} 
+            selectedStocks={selectedStocks} 
+            stockPool={stockPool}
+            handleClick={handleSelectStock}
             />
-          :
+            :
             "Work in progress..."
-        }
+          }
+        </div>
       </div>
+    </>
   );
 }
 

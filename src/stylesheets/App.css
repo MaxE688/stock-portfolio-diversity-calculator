@@ -28,10 +28,11 @@ p {
 }
 
 .component-container {
-  /* display: flex; */
-  flex-direction: column;
+  display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .search {
@@ -222,9 +223,10 @@ tr td:last-child {
   min-height: 7rem;
   /* background-color: #e2e8f0; */
   border-radius: 0.75rem;
-  min-width: 28rem;
+  min-width: 17rem;
+  min-height: 12.5rem;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: center;
 }
 
