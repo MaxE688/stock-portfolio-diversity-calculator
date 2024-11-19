@@ -5,6 +5,7 @@ import SelectedStocks from "./selected-stocks";
 import PortfolioData from "./score-components/portfolio-data";
 import { openWebSocket } from "../lib/ws-operations";
 import SelectPool from "./select-pool";
+import Industries from "./industries";
 
 
 
@@ -191,45 +192,47 @@ export default function PortfolioCalculator(){
 
   return (
     <>
-      <SelectPool 
+      {/* <SelectPool 
         pool={stockPool} 
         setPool={handleStockPoolChange} 
         handleNewStock={handleNewStock}
-      />
+      /> */}
       <div className="component-container">
-        <div>
-          <SelectedStocks 
+        <div id='table-container'>
+          {/* <SelectedStocks 
             stocks={selectedStocks} 
             handleClick={handleUnselectStock}
             handleQtyChange={handleQtyChange}  
-          />
-        </div>
-        <div>
-
-          {/* <button onClick={() => subscribe(["GME"])}>Click me, bro</button> */}
-          <div className="portfolio-container">
-            <div>
-              <SelectedStocks 
-                stocks={selectedStocks} 
-                handleClick={handleUnselectStock}
-                handleQtyChange={handleQtyChange}  
-                />
-            </div>
-            <div className="calculator-container">
-              <PortfolioData stocks={selectedStocks} />
-            </div>
-          </div>
+          /> */}
           {
             stocks.length > 0?
             <AllStocks 
-            stocks={stocks} 
-            selectedStocks={selectedStocks} 
-            stockPool={stockPool}
-            handleClick={handleSelectStock}
+              stocks={stocks} 
+              selectedStocks={selectedStocks} 
+              stockPool={stockPool}
+              handleClick={handleSelectStock}
             />
             :
             "Work in progress..."
           }
+        </div>
+        <div id='main-pane'>
+            <div className="">
+              <Industries stocks={selectedStocks}/>
+            </div>
+          {/* <button onClick={() => subscribe(["GME"])}>Click me, bro</button> */}
+          <div className="portfolio-container">
+            <div className="calculator-container">
+              <PortfolioData stocks={selectedStocks} />
+            </div>
+          </div>
+          <div>
+              <SelectedStocks 
+                stocks={selectedStocks} 
+                handleClick={handleUnselectStock}
+                handleQtyChange={handleQtyChange}  
+              />
+          </div>
         </div>
       </div>
     </>
