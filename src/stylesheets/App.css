@@ -5,7 +5,7 @@
 
 #root {
   max-width: 1280px;
-  margin: 0 auto;
+  margin: 0 auto 0 0rem;
   padding: 2rem;
   text-align: center;
   
@@ -28,11 +28,7 @@ p {
 }
 
 .component-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 1rem;
+  min-width: 75rem;
 }
 
 .search {
@@ -153,6 +149,26 @@ tr td:last-child {
   width: 6rem;
 }
 
+.industry-card{
+  background-image: conic-gradient(
+    from 180deg
+    at 50% 115%,
+    #c7d2fe ,
+    #020617
+  );
+  margin: 0.25rem;
+  border-radius: 0.75rem;
+   /* height: 12rem; */
+  width: 8rem; 
+  position: relative;
+}
+
+.industry-container{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+}
+
 .unselect-stock{
   cursor: pointer;
   position: absolute;
@@ -224,10 +240,10 @@ tr td:last-child {
   /* background-color: #e2e8f0; */
   border-radius: 0.75rem;
   min-width: 17rem;
-  min-height: 12.5rem;
+  min-height: 25rem;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: center;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start;
 }
 
 .portfolio-container {
@@ -414,4 +430,14 @@ img.waiting {
 .disabled-arrow {
   background-color: #a1a1a1;
   cursor: default;
+}
+
+#main-pane {
+  background-color: #0f0925;
+  padding: 4rem 6rem;
+  border-radius: 1rem;
+  float: right;
+}
+#table-container {
+  position:fixed;
 }
