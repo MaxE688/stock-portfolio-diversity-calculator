@@ -14,7 +14,7 @@ interface Props {
 
 export default function AllStocks({ stocks, selectedStocks, stockPool, handleClick }: Props){
   
-  const TOTAL_STOCKS_PER_PAGE = 8;
+  const TOTAL_STOCKS_PER_PAGE = 12;
   const defaultPageCount = Math.ceil(stocks.length / TOTAL_STOCKS_PER_PAGE);
 
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
@@ -69,7 +69,7 @@ export default function AllStocks({ stocks, selectedStocks, stockPool, handleCli
 
   return(
     <>
-      <h3>{stockPool}</h3>
+      {/* <h3>{stockPool}</h3> */}
       <div className="page-controls-head">
         <FilterBar setFilter={setFilter} />
         <PageControls 
