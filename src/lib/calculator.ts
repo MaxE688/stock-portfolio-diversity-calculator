@@ -51,7 +51,7 @@ import { StockCardData, StockData } from "./definitions";
 
 export default function getScore(stocks: StockCardData[]){
 
-  const sectors: {name: string, value: number}[] = getSectors(stocks);
+  const sectors: {name: string, value: number}[] = createSectors(stocks);
 
   // reset sector values
   sectors.forEach( sector => sector.value = 0.0);
@@ -69,7 +69,28 @@ export default function getScore(stocks: StockCardData[]){
 }
 
 
-const getSectors = (stocks: StockCardData[]) => {
+export function getSectors(stocks: StockCardData[]){
+  const defSectors = createSectors(stocks);
+  const weights = calculateWeights(stocks, defSectors);
+
+  const sectors: {name: string, value:number, weight: number }[] = []
+
+  defSectors.forEach((sector, i) => {
+    const sect = {
+      name: sector.name,
+      value: sector.value,
+      weight: weights[i]
+    }
+
+    sectors.push(sect);
+  });
+
+  return sectors;
+  
+}
+
+
+const createSectors = (stocks: StockCardData[]) => {
   const sectors: {name: string, value: number}[] = [];
   
   stocks.forEach( (stock: StockCardData) => {
