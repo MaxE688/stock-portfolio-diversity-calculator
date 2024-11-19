@@ -4,9 +4,10 @@
 }
 
 #root {
-  max-width: 1280px;
-  margin: 0 auto 0 0rem;
-  padding: 2rem;
+  /* max-width: 1280px; */
+  width:100%;
+  /* margin: 0 0 0 0rem; */
+  padding: 0.5rem;
   text-align: center;
   
 }
@@ -164,9 +165,9 @@ tr td:last-child {
 }
 
 .industry-container{
-  display:grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-
+  background-color: #312e81;
+  padding: 4rem 5rem 2rem 0rem;
+  border-radius: 1rem;
 }
 
 .unselect-stock{
@@ -434,9 +435,11 @@ img.waiting {
 
 #main-pane {
   background-color: #0f0925;
-  padding: 4rem 6rem;
+  padding: 4rem 6rem ;
   border-radius: 1rem;
-  float: right;
+  width: 40rem;
+  margin-left: 30rem;
+  
 }
 #table-container {
   position:fixed;
