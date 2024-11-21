@@ -22,7 +22,7 @@ export default function Table({ stocks, selectedStocks, stockPool, handleClick }
           <th>Symbol</th>
           <th>Current Price</th>
           <th>Sector</th>
-          <th>{stockPool === "Custom List"? "Remove" : " "}</th>
+          <th>{"Remove"}</th>
         </tr>
       </thead>
       <tbody>

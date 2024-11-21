@@ -30,12 +30,8 @@ export default function TableRow({ stock, handleClick, stockPool, isSelected = f
       <td className="symbol">{stock.symbol }</td>
       <td className={`${priceChange >= 0? "green" : "red"} price`} >{Number(stock.price).toFixed(2)}</td>
       <td className="sector">{stock.sector }</td>
-      {
-        stockPool === "Custom List"?
-        <td><button>X</button></td>
-        :
-        ""
-      }
+      <td ><button className="remove-stock">X</button></td>
+        
     </tr>
   )
 }
