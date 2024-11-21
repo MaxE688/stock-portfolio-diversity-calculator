@@ -21,10 +21,10 @@ export default function AllStocks({ stocks, selectedStocks, stockPool, handleCli
   const [dataToDisplay, setDataToDisplay] = useState<StockData[]>([]);
   const [filteredData, setFilteredData] = useState<StockData[]>([]);
   const [filter, setFilter] = useState("");
-  const [totalPages, setTotalPages] = useState(defaultPageCount);
+  // const [totalPages, setTotalPages] = useState(defaultPageCount);
 
 
-
+  // initialize display data
   useEffect(() => {
     // setDataToDisplay(stocks.slice(0, TOTAL_STOCKS_PER_PAGE));
     updateDisplayData(stocks);
@@ -32,7 +32,7 @@ export default function AllStocks({ stocks, selectedStocks, stockPool, handleCli
 
   useEffect(() => {
     if(filter === ""){
-      setTotalPages(getTotalPages(stocks.length));
+      // setTotalPages(getTotalPages(stocks.length));
       updateDisplayData(stocks);
     }
     else{
@@ -42,7 +42,7 @@ export default function AllStocks({ stocks, selectedStocks, stockPool, handleCli
 
   useEffect(() => {
     const newArr = stocks.filter((stock) => stock.symbol.toLowerCase().indexOf(filter.toLowerCase()) > -1);
-    setTotalPages(getTotalPages(newArr.length));
+    // setTotalPages(getTotalPages(newArr.length));
     setFilteredData(newArr)
     updateDisplayData(newArr);
   }, [filter]);
@@ -61,7 +61,8 @@ export default function AllStocks({ stocks, selectedStocks, stockPool, handleCli
 
     const start = (currentPageNumber-1) * stocksPerPage;
     const end = currentPageNumber * stocksPerPage;
-    setDataToDisplay(data.slice(start, end));
+    // setDataToDisplay(data.slice(start, end));
+    setDataToDisplay(data);
   }
   
 
@@ -72,11 +73,12 @@ export default function AllStocks({ stocks, selectedStocks, stockPool, handleCli
       {/* <h3>{stockPool}</h3> */}
       <div className="page-controls-head">
         <FilterBar setFilter={setFilter} />
-        <PageControls 
+        <button className='add-button' >+</button>
+        {/* <PageControls 
           setCurrentPageNumber={setCurrentPageNumber}
           currentPageNumber={currentPageNumber}
           totalPages={totalPages}
-          />
+          /> */}
       </div>
       <Table 
         stocks={dataToDisplay}
@@ -84,11 +86,11 @@ export default function AllStocks({ stocks, selectedStocks, stockPool, handleCli
         stockPool={stockPool}
         handleClick={handleClick}
       />
-      <PageControls 
+      {/* <PageControls 
         setCurrentPageNumber={setCurrentPageNumber}
         currentPageNumber={currentPageNumber}
         totalPages={totalPages}
-      />
+      /> */}
     </>
   );
 }
