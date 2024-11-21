@@ -213,25 +213,26 @@ export default function PortfolioCalculator(){
               handleClick={handleSelectStock}
             />
             :
+            // Place Loading component here
             "Work in progress..."
           }
         </div>
         <div id='main-pane'>
-            <div className="">
-              <Industries stocks={selectedStocks}/>
-            </div>
           {/* <button onClick={() => subscribe(["GME"])}>Click me, bro</button> */}
           <div className="portfolio-container">
             <div className="calculator-container">
               <PortfolioData stocks={selectedStocks} />
             </div>
           </div>
+          <div className="">
+            <Industries stocks={selectedStocks}/>
+          </div>
           <div>
               <SelectedStocks 
                 stocks={selectedStocks} 
                 handleClick={handleUnselectStock}
                 handleQtyChange={handleQtyChange}  
-              />
+                />
           </div>
         </div>
       </div>
