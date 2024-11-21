@@ -1,5 +1,6 @@
 import { StockCardData } from "../../lib/definitions";
 import DiversityScore from "./diversity-score";
+import PortfolioAverage from "./portfolio-average";
 import PortfolioValue from "./portfolio-value";
 
 interface Props {
@@ -14,8 +15,15 @@ export default function PortfolioData({ stocks }: Props ) {
   
   return (
     <>
-      <DiversityScore stocks={stocks} />
-      <PortfolioValue stocks={stocks} />
+      <div>
+        <DiversityScore stocks={stocks} />
+      </div>
+      <div>
+        <PortfolioValue stocks={stocks} />
+      </div>
+      <div>
+        <PortfolioAverage stocks={stocks} />
+      </div>
     </>
     
   );
