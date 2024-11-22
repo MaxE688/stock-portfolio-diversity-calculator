@@ -219,15 +219,17 @@ export default function PortfolioCalculator(){
         </div>
         <div id='main-pane'>
           {/* <button onClick={() => subscribe(["GME"])}>Click me, bro</button> */}
-          <div className="portfolio-container">
-            <div className="calculator-container">
-              <PortfolioData stocks={selectedStocks} />
+          <div className='pane-content'>
+            <div className="portfolio-container">
+              <div className="calculator-container">
+                <PortfolioData stocks={selectedStocks} />
+              </div>
+            </div>
+            <div className="">
+              <Industries stocks={selectedStocks}/>
             </div>
           </div>
-          <div className="">
-            <Industries stocks={selectedStocks}/>
-          </div>
-          <div>
+          <div className='pane-content'>
               <SelectedStocks 
                 stocks={selectedStocks} 
                 handleClick={handleUnselectStock}
@@ -235,6 +237,7 @@ export default function PortfolioCalculator(){
                 />
           </div>
         </div>
+        
       </div>
     </>
   );
